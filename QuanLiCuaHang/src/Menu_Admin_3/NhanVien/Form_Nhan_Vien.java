@@ -2,22 +2,14 @@ package Menu_Admin_3.NhanVien;
 
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.Image;
 import java.awt.RenderingHints;
 import java.awt.event.KeyEvent;
-import java.awt.image.BufferedImage;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.util.Vector;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.imageio.ImageIO;
-import javax.swing.ImageIcon;
-import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.RowFilter;
 import javax.swing.table.DefaultTableModel;
@@ -28,23 +20,8 @@ public class Form_Nhan_Vien extends javax.swing.JPanel {
     public Form_Nhan_Vien() {
         initComponents();
         setOpaque(false);
-//        init();
     }
 
-//    private void init() {
-//        DefaultTableModel model = (DefaultTableModel) table.getModel();
-//        model.addRow(new Object[]{1, "Hoàng Thanh A", "Male", "10/02/2004", "0888101234", "Đà Nẵng", "nhanvien", "1"});
-//        model.addRow(new Object[]{2, "Nguyễn Thị F", "Female", "10/02/2006", "0978431234", "Hà Nội", "nhanvien2", "2"});
-//        model.addRow(new Object[]{3, "Hoàng Thanh B", "Male", "10/02/2008", "0888105678", "Đà Nẵng", "nhanvien3", "3"});
-//        model.addRow(new Object[]{4, "Nguyễn Thị E", "Female", "10/02/2003", "0978439056", "Hà Nội", "nhanvien4", "4"});
-//        model.addRow(new Object[]{5, "Hoàng Thanh C", "Male", "10/02/2008", "0978431234", "Đà Nẵng", "nhanvien5", "5"});
-//        model.addRow(new Object[]{6, "Nguyễn Thị D", "Female", "10/02/2002", "0978439056", "Đà Nẵng", "nhanvien6", "6"});
-//        model.addRow(new Object[]{7, "Hoàng Thanh D", "Male", "10/02/2000", "0978439056", "Hà Nội", "nhanvien7", "7"});
-//        model.addRow(new Object[]{8, "Nguyễn Thị C", "Female", "10/02/2001", "0978431234", "Đà Nẵng", "nhanvien8", "8"});
-//        model.addRow(new Object[]{9, "Hoàng Thanh E", "Male", "10/02/2007", "0978439056", "Hà Nội", "nhanvien9", "9"});
-//        model.addRow(new Object[]{10, "Nguyễn Thị B", "Female", "10/02/2006", "0978431234", "Đà Nẵng", "nhanvien10", "10"});
-//        model.addRow(new Object[]{11, "Hoàng Thanh F", "Male", "10/02/2009", "0978439056", "Hà Nội", "nhanvien11", "11"});
-//        model.addRow(new Object[]{12, "Nguyễn Thị A", "Female", "10/02/2002", "0978439056", "Đà Nẵng", "nhanvien12", "12"});
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -385,29 +362,35 @@ public class Form_Nhan_Vien extends javax.swing.JPanel {
 
     private void button1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button1ActionPerformed
         // TODO add your handling code here:
-        int row = table.getSelectedRow();
-
-        if (row < 0) {
-            JOptionPane.showMessageDialog(this,
-                    " No row is selected. Please select one row ! ",
-                    " Select row ",
-                    JOptionPane.ERROR_MESSAGE);
-        } else {
-            DefaultTableModel model = (DefaultTableModel) table.getModel();
-            model.removeRow(row);
-        }
-        DefaultTableModel model;
-        model = (DefaultTableModel) table.getModel();
-        Vector<Vector> tableData = model.getDataVector();
-
-        try {
-            try (FileOutputStream file = new FileOutputStream("file.txt"); ObjectOutputStream output = new ObjectOutputStream(file)) {
-
-                output.writeObject(tableData);
-
+        int selectedRowIndex = table.getSelectedRow();
+        if (selectedRowIndex != -1) {
+            try (BufferedReader reader = new BufferedReader(new FileReader("nhanvien.txt")); BufferedWriter writer = new BufferedWriter(new FileWriter("nhanvien_temp.txt"))) {
+                String line;
+                int lineNumber = 0;
+                while ((line = reader.readLine()) != null) {
+                    if (lineNumber != selectedRowIndex) {
+                        writer.write(line + "\n");
+                    }
+                    lineNumber++;
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+                JOptionPane.showMessageDialog(this, "Error deleting data!", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
             }
-        } catch (IOException ex) {
 
+            File dataFile = new File("nhanvien.txt");
+            File tempFile = new File("nhanvien_temp.txt");
+            if (dataFile.delete() && tempFile.renameTo(dataFile)) {
+                // Data deleted and temporary file renamed successfully
+                DefaultTableModel model = (DefaultTableModel) table.getModel();
+                model.removeRow(selectedRowIndex);
+                JOptionPane.showMessageDialog(this, "Data deleted successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
+            } else {
+                JOptionPane.showMessageDialog(this, "Error deleting data!", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "Please select a row to delete!", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_button1ActionPerformed
 
@@ -439,6 +422,15 @@ public class Form_Nhan_Vien extends javax.swing.JPanel {
                     " Try again ! ",
                     JOptionPane.ERROR_MESSAGE);
         } else {
+            try (FileWriter writer = new FileWriter("nhanvien.txt", true)) {
+                writer.write(String.format("%s,%s,%s,%s,%s,%s,%s,%s\n", id, fullname, gender, dateofbirth, phonenumber, address, username, password));
+            } catch (IOException e) {
+                e.printStackTrace();
+                JOptionPane.showMessageDialog(this,
+                        "Error saving data to file!",
+                        "Error",
+                        JOptionPane.ERROR_MESSAGE);
+            }
             DefaultTableModel model = (DefaultTableModel) table.getModel();
             model.addRow(new Object[]{id, fullname, gender, dateofbirth, phonenumber, address, username, password});
 
@@ -451,36 +443,33 @@ public class Form_Nhan_Vien extends javax.swing.JPanel {
             jTextField8.setText("");
             jPasswordField1.setText("");
         }
-        DefaultTableModel model;
-        model = (DefaultTableModel) table.getModel();
-        Vector<Vector> tableData = model.getDataVector();
-
-        try {
-            try (FileOutputStream file = new FileOutputStream("file.txt"); ObjectOutputStream output = new ObjectOutputStream(file)) {
-
-                output.writeObject(tableData);
-
-            }
-        } catch (IOException ex) {
-
-        }
     }//GEN-LAST:event_button3ActionPerformed
 
     private void formAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_formAncestorAdded
         // TODO add your handling code here:
-        try {
-            Vector<Vector> tableData;
-            try (FileInputStream file = new FileInputStream("file.txt"); ObjectInputStream input = new ObjectInputStream(file)) {
-                tableData = (Vector<Vector>) input.readObject();
-            }
+        try (FileReader reader = new FileReader("nhanvien.txt")) {
+            BufferedReader br = new BufferedReader(reader);
+            String line;
+            while ((line = br.readLine()) != null) {
+                String[] data = line.split(",");
 
-            DefaultTableModel model = (DefaultTableModel) table.getModel();
-            for (int i = 0; i < tableData.size(); i++) {
-                Vector row = tableData.get(i);
-                model.addRow(new Object[]{row.get(0), row.get(1), row.get(2), row.get(3), row.get(4), row.get(5), row.get(6), row.get(7)});
+                String id = data[0];
+                String fullname = data[1];
+                String gender = data[2];
+                String dateofbirth = data[3];
+                String phonenumber = data[4];
+                String address = data[5];
+                String username = data[6];
+                String password = data[7];
+                DefaultTableModel model = (DefaultTableModel) table.getModel();
+                model.addRow(new Object[]{id, fullname, gender, dateofbirth, phonenumber, address, username, password});
             }
-
-        } catch (IOException | ClassNotFoundException ex) {
+        } catch (IOException e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(this,
+                    "Error loading data from file!",
+                    "Error",
+                    JOptionPane.ERROR_MESSAGE);
         }
 //         JFileChooser chooser = new JFileChooser();
 //        chooser.showOpenDialog(null);

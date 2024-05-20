@@ -1,6 +1,13 @@
 package Menu_Admin_3.DoanhThu;
 
 import java.awt.Color;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.Scanner;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 public class Form_Doanh_Thu extends javax.swing.JPanel {
@@ -12,37 +19,29 @@ public class Form_Doanh_Thu extends javax.swing.JPanel {
     }
 
     private void init() {
-        chart.addLegend("Income", new Color(245, 189, 135));
-        chart.addLegend("Expense", new Color(135, 189, 245));
-        chart.addLegend("Profit", new Color(189, 135, 245));
-        chart.addLegend("Cost", new Color(139, 229, 222));
-        chart.addData(new ModelChart("January", new double[]{100, 150, 200, 500}));
-        chart.addData(new ModelChart("February", new double[]{600, 750, 300, 150}));
-        chart.addData(new ModelChart("March", new double[]{200, 350, 1000, 900}));
-        chart.addData(new ModelChart("April", new double[]{480, 150, 750, 700}));
-        chart.addData(new ModelChart("May", new double[]{350, 540, 300, 150}));
-        chart.addData(new ModelChart("June", new double[]{190, 500, 700, 1000}));
-        chart.addData(new ModelChart("July", new double[]{190, 500, 700, 1000}));
-        chart.addData(new ModelChart("August", new double[]{190, 500, 700, 1000}));
-        chart.addData(new ModelChart("September", new double[]{190, 500, 700, 1000}));
-        chart.addData(new ModelChart("October", new double[]{190, 500, 700, 1000}));
-        chart.addData(new ModelChart("November", new double[]{190, 500, 700, 1000}));
-        chart.addData(new ModelChart("December", new double[]{190, 500, 700, 1000}));
+        chart.addLegend("Income", new Color(78, 238, 148));
+        chart.addLegend("Expense", new Color(220, 20, 60));
+        chart.addLegend("Profit", new Color(139, 229, 222));
+        chart.addLegend("Cost", new Color(236, 171, 83));
+        try {
+            Scanner scanner = new Scanner(new File("doanhthu.txt"));
+            while (scanner.hasNextLine()) {
+                String line = scanner.nextLine();
+                String[] data = line.split(",");
+                String month = data[0];
+                double income = Double.parseDouble(data[1]);
+                double expense = Double.parseDouble(data[2]);
+                double profit = Double.parseDouble(data[3]);
+                double cost = Double.parseDouble(data[4]);
 
-        DefaultTableModel model = (DefaultTableModel) table.getModel();
-        model.addRow(new Object[]{1, "Hoàng Thanh A", "Male", "0888167895", "Iphone 15 Pro Max", "$ 1.800", "1:36 16/04/2024"});
-        model.addRow(new Object[]{2, "Nguyễn Thị D", "Female", "0888167895", "Iphone 11 Pro", "$ 1.400", "21:20 05/06/2024"});
-        model.addRow(new Object[]{1, "Hoàng Thanh B", "Male", "0888167895", "Iphone 12 Pro Max", "$ 1.200", "1:36 16/04/2024"});
-        model.addRow(new Object[]{2, "Nguyễn Thị L", "Female", "0888167895", "Iphone 14 Pro", "$ 1.700", "21:20 05/06/2024"});
-        model.addRow(new Object[]{1, "Hoàng Thanh C", "Male", "0888167895", "Iphone 12 Pro Max", "$ 1.400", "1:36 16/04/2024"});
-        model.addRow(new Object[]{2, "Nguyễn Thị V", "Female", "0888167895", "Iphone 15 Pro", "$ 1.500", "21:20 05/06/2024"});
-        model.addRow(new Object[]{1, "Hoàng Thanh G", "Male", "0888167895", "Iphone 13 Pro Max", "$ 1.300", "1:36 16/04/2024"});
-        model.addRow(new Object[]{2, "Nguyễn Thị A", "Female", "0888167895", "Iphone 112 Pro", "$ 1.200", "21:20 05/06/2024"});
-        model.addRow(new Object[]{1, "Hoàng Thanh F", "Male", "0888167895", "Iphone 12 Pro Max", "$ 1.500", "1:36 16/04/2024"});
-        model.addRow(new Object[]{2, "Nguyễn Thị B", "Female", "0888167895", "Iphone 11 Pro", "$ 1.700", "21:20 05/06/2024"});
-        model.addRow(new Object[]{1, "Hoàng Thanh Q", "Male", "0888167895", "Iphone 13 Pro Max", "$ 1.800", "1:36 16/04/2024"});
-        model.addRow(new Object[]{2, "Nguyễn Thị BC", "Female", "0888167895", "Iphone 12 Pro", "$ 1.900", "21:20 05/06/2024"});
-
+                chart.addData(new ModelChart(month, new double[]{income, expense, profit, cost}));
+            }
+            scanner.close();
+        } catch (FileNotFoundException e) {
+            System.err.println("Error: File data.txt not found!");
+        } catch (NumberFormatException e) {
+            System.err.println("Error: Invalid data format in data.txt!");
+        }
     }
 
     @SuppressWarnings("unchecked")
@@ -56,6 +55,16 @@ public class Form_Doanh_Thu extends javax.swing.JPanel {
         jScrollPane1 = new javax.swing.JScrollPane();
         table = new Menu_Admin_3.DoanhThu.TableColumn();
         jLabel2 = new javax.swing.JLabel();
+
+        addAncestorListener(new javax.swing.event.AncestorListener() {
+            public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
+                formAncestorAdded(evt);
+            }
+            public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
+            }
+            public void ancestorRemoved(javax.swing.event.AncestorEvent evt) {
+            }
+        });
 
         jLabel1.setFont(new java.awt.Font("sansserif", 1, 20)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(79, 79, 79));
@@ -89,17 +98,9 @@ public class Form_Doanh_Thu extends javax.swing.JPanel {
 
             },
             new String [] {
-                "No", "Name", "Gender", "Phone Number", "Product", "Total Amount", "Purchase Time"
+                "Month/Year", "Income", "Expense", "Profit", "Cost"
             }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, true
-            };
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
+        ));
         jScrollPane1.setViewportView(table);
         if (table.getColumnModel().getColumnCount() > 0) {
             table.getColumnModel().getColumn(0).setPreferredWidth(50);
@@ -107,7 +108,7 @@ public class Form_Doanh_Thu extends javax.swing.JPanel {
 
         jLabel2.setFont(new java.awt.Font("sansserif", 1, 20)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(79, 79, 79));
-        jLabel2.setText("Purchase History");
+        jLabel2.setText("Revennue History");
         jLabel2.setBorder(javax.swing.BorderFactory.createEmptyBorder(10, 10, 1, 1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -145,6 +146,31 @@ public class Form_Doanh_Thu extends javax.swing.JPanel {
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void formAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_formAncestorAdded
+        // TODO add your handling code here:
+        try (FileReader reader = new FileReader("doanhthu.txt")) {
+            BufferedReader br = new BufferedReader(reader);
+            String line;
+            while ((line = br.readLine()) != null) {
+                String[] data = line.split(",");
+
+                String month = data[0];
+                int income = (int) Double.parseDouble(data[1]);
+                int expense = (int) Double.parseDouble(data[2]);
+                int profit = (int) Double.parseDouble(data[3]);
+                int cost = (int) Double.parseDouble(data[4]);
+                DefaultTableModel model = (DefaultTableModel) table.getModel();
+                model.addRow(new Object[]{month, income, expense, profit, cost});
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(this,
+                    "Error loading data from file!",
+                    "Error",
+                    JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_formAncestorAdded
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private Menu_Admin_3.DoanhThu.Chart chart;

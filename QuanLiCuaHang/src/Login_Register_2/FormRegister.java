@@ -85,12 +85,14 @@ public class FormRegister extends javax.swing.JFrame {
         jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel4.setText("Password :");
 
+        jPassword.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
         jPassword.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 jPasswordKeyPressed(evt);
             }
         });
 
+        jPassword1.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
         jPassword1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jPassword1ActionPerformed(evt);
@@ -185,22 +187,28 @@ public class FormRegister extends javax.swing.JFrame {
 
     private void jButtonDangKiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDangKiActionPerformed
         StringBuilder sb = new StringBuilder();
-        if (jTendangnhap.getText().equals("")) {
-            JOptionPane.showMessageDialog(this, " Tên đăng nhập không được để trống !", " Error", JOptionPane.ERROR_MESSAGE);
-        } else {
+        String username = jTendangnhap.getText().trim();
+        if (username.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Username cannot be blank!", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
         }
         String password = new String(jPassword.getPassword());
-        if (password.equals("")) {
-            JOptionPane.showMessageDialog(this, " Mật khẩu không được để trống !", " Error", JOptionPane.ERROR_MESSAGE);
-//      jLabel4.requestFocus();
-        } else {
+        if (password.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Password cannot be blank!", "Error", JOptionPane.ERROR_MESSAGE);
+            jPassword.requestFocus();
+            return;
         }
         String confirm = new String(jPassword1.getPassword());
         if (!password.equals(confirm)) {
-            JOptionPane.showMessageDialog(this, " Mật khẩu đã nhập không khớp ! Thử lại.", " Error", JOptionPane.ERROR_MESSAGE);
-        } else {
-            JOptionPane.showMessageDialog(this, " Đăng ký thành công !", "Thông báo", 1);
+            JOptionPane.showMessageDialog(this, "Passwords do not match! Please retry.", "Error", JOptionPane.ERROR_MESSAGE);
+            jPassword.requestFocus();
+            return;
         }
+        System.out.println("Registration successful! Username: " + username + ", Password: " + password);
+        JOptionPane.showMessageDialog(this, "Sign Up Success!", "Success", JOptionPane.INFORMATION_MESSAGE);
+        jTendangnhap.setText("");
+        jPassword.setText("");
+        jPassword1.setText("");
     }//GEN-LAST:event_jButtonDangKiActionPerformed
 
     private void jButtonQuayLaiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonQuayLaiActionPerformed
@@ -235,74 +243,92 @@ public class FormRegister extends javax.swing.JFrame {
         // TODO add your handling code here:
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
             StringBuilder sb = new StringBuilder();
-            if (jTendangnhap.getText().equals("")) {
-                JOptionPane.showMessageDialog(this, " Tên đăng nhập không được để trống !", " Error", JOptionPane.ERROR_MESSAGE);
-            } else {
+            String username = jTendangnhap.getText().trim();
+            if (username.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Username cannot be blank!", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
             }
             String password = new String(jPassword.getPassword());
-            if (password.equals("")) {
-                JOptionPane.showMessageDialog(this, " Mật khẩu không được để trống !", " Error", JOptionPane.ERROR_MESSAGE);
-//      jLabel4.requestFocus();
-            } else {
+            if (password.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Password cannot be blank!", "Error", JOptionPane.ERROR_MESSAGE);
+                jPassword.requestFocus();
+                return;
             }
             String confirm = new String(jPassword1.getPassword());
             if (!password.equals(confirm)) {
-                JOptionPane.showMessageDialog(this, " Mật khẩu đã nhập không khớp ! Thử lại.", " Error", JOptionPane.ERROR_MESSAGE);
-            } else {
-                JOptionPane.showMessageDialog(this, " Đăng ký thành công !", "Thông báo", 1);
+                JOptionPane.showMessageDialog(this, "Passwords do not match! Please retry.", "Error", JOptionPane.ERROR_MESSAGE);
+                jPassword.requestFocus();
+                return;
             }
+            System.out.println("Registration successful! Username: " + username + ", Password: " + password);
+            JOptionPane.showMessageDialog(this, "Sign Up Success!", "Success", JOptionPane.INFORMATION_MESSAGE);
+            jTendangnhap.setText("");
+            jPassword.setText("");
+            jPassword1.setText("");
     }//GEN-LAST:event_jPassword1KeyPressed
-}
+    }
     private void jPasswordKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jPasswordKeyPressed
         // TODO add your handling code here:
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
             StringBuilder sb = new StringBuilder();
-            if (jTendangnhap.getText().equals("")) {
-                JOptionPane.showMessageDialog(this, " Tên đăng nhập không được để trống !", " Error", JOptionPane.ERROR_MESSAGE);
-            } else {
+            String username = jTendangnhap.getText().trim();
+            if (username.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Username cannot be blank!", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
             }
             String password = new String(jPassword.getPassword());
-            if (password.equals("")) {
-                JOptionPane.showMessageDialog(this, " Mật khẩu không được để trống !", " Error", JOptionPane.ERROR_MESSAGE);
-//      jLabel4.requestFocus();
-            } else {
+            if (password.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Password cannot be blank!", "Error", JOptionPane.ERROR_MESSAGE);
+                jPassword.requestFocus();
+                return;
             }
             String confirm = new String(jPassword1.getPassword());
             if (!password.equals(confirm)) {
-                JOptionPane.showMessageDialog(this, " Mật khẩu đã nhập không khớp ! Thử lại.", " Error", JOptionPane.ERROR_MESSAGE);
-            } else {
-                JOptionPane.showMessageDialog(this, " Đăng ký thành công !", "Thông báo", 1);
+                JOptionPane.showMessageDialog(this, "Passwords do not match! Please retry.", "Error", JOptionPane.ERROR_MESSAGE);
+                jPassword.requestFocus();
+                return;
             }
-    }               
+            System.out.println("Registration successful! Username: " + username + ", Password: " + password);
+            JOptionPane.showMessageDialog(this, "Sign Up Success!", "Success", JOptionPane.INFORMATION_MESSAGE);
+            jTendangnhap.setText("");
+            jPassword.setText("");
+            jPassword1.setText("");
+        }
     }//GEN-LAST:event_jPasswordKeyPressed
 
     private void jTendangnhapKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTendangnhapKeyPressed
         // TODO add your handling code here:
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
             StringBuilder sb = new StringBuilder();
-            if (jTendangnhap.getText().equals("")) {
-                JOptionPane.showMessageDialog(this, " Tên đăng nhập không được để trống !", " Error", JOptionPane.ERROR_MESSAGE);
-            } else {
+            String username = jTendangnhap.getText().trim();
+            if (username.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Username cannot be blank!", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
             }
             String password = new String(jPassword.getPassword());
-            if (password.equals("")) {
-                JOptionPane.showMessageDialog(this, " Mật khẩu không được để trống !", " Error", JOptionPane.ERROR_MESSAGE);
-//      jLabel4.requestFocus();
-            } else {
+            if (password.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Password cannot be blank!", "Error", JOptionPane.ERROR_MESSAGE);
+                jPassword.requestFocus();
+                return;
             }
             String confirm = new String(jPassword1.getPassword());
             if (!password.equals(confirm)) {
-                JOptionPane.showMessageDialog(this, " Mật khẩu đã nhập không khớp ! Thử lại.", " Error", JOptionPane.ERROR_MESSAGE);
-            } else {
-                JOptionPane.showMessageDialog(this, " Đăng ký thành công !", "Thông báo", 1);
+                JOptionPane.showMessageDialog(this, "Passwords do not match! Please retry.", "Error", JOptionPane.ERROR_MESSAGE);
+                jPassword.requestFocus();
+                return;
             }
-    }               
+            System.out.println("Registration successful! Username: " + username + ", Password: " + password);
+            JOptionPane.showMessageDialog(this, "Sign Up Success!", "Success", JOptionPane.INFORMATION_MESSAGE);
+            jTendangnhap.setText("");
+            jPassword.setText("");
+            jPassword1.setText("");
+        }
     }//GEN-LAST:event_jTendangnhapKeyPressed
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         // TODO add your handling code here:
-        for(double i =0.0 ; i<=1.0 ; i+=0.1){
-            String s = i+"";
+        for (double i = 0.0; i <= 1.0; i += 0.1) {
+            String s = i + "";
             float f = Float.parseFloat(s);
             this.setOpacity(f);
             try {
@@ -311,9 +337,8 @@ public class FormRegister extends javax.swing.JFrame {
                 Logger.getLogger(FormLogin.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-        
-    }//GEN-LAST:event_formWindowOpened
 
+    }//GEN-LAST:event_formWindowOpened
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */

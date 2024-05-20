@@ -1,0 +1,16 @@
+Hoang Thanh An,Male,user1@gmail.com,0888100204,Da Nang,iPhone 14 Pro Max,$1935,12:20 02/04/2024
+Tran Minh Manh,Male,user2@gmail.com,0987654321,Dong Ha,Samsung Galaxy S24+,$1000,11:30 12/06/2023
+Hoang Van Minh ,Male,hoangvanminh@gmail.com,0343537999,Ha Noi,iPhone 15 Pro Max,$1499,13:12 04/04/2024
+Nguyen Viet Minh ,Male,minhviet@gmail.com,0398738535,Hue,iPhone 14,$1099,12:23 13/05/2024
+Nguyen Van Nam,Male,nguyenvannam@gmail.com,0398878667,Quang Tri,iPhone 14 Pro,$1299,9:23 15/04/2023
+Tran Thi Mai ,Female,tranthimai@gmai.com,0398876666,Da Nang,Samsung S24 Ultra,$1419,19:25 23/04/2024
+Ho Thi Nu ,Female,hothinu@gmail.com,03523726554,Quang Nam,iPhone 12 Pro Max,$1419,13:28 25/03/2024
+Nguyen Phuong Mai,Female,nguyenphuongmai@gmail.com,0395463643,Ha Noi,iPhone 12 Pro,$1299,14:24 24/04/2024
+Tran Duc Quang,Male,tranducquang@gmail.com,0353826445,Da Nang,iPhone 14 Pro Max,$1935,13:24 24/03/2024
+Tran Van Viem,Male,tranvanvien@gmail.com,0398878663,Hue,iPhone 15,$1099,20:00 12/05/2024
+Ho Van Hai,Male,hovanhai@gmail.com,0597867686,Quang Tri,iPhone 15 Pro,$1199,14:25 26/04/2024
+Hoang Thi Phuong,Female,hoangthiphuong@gmail.com,0395754876,Hue,iPhone 15 Plus,$1299,15:45 30/04/2024
+Hoang Van Nam,Male,hoangvannam@gmail.com,0398535335,Hue,iPhone 15 Pro Max,$1499,11:30 12/06/2023
+Tran Minh Quang,Male,tranminhquang@gmail.com,0438573754,Da Nang ,iPhone 13 Pro Max,$1399,19:25 23/04/2024
+Nguen Van Tan,Male,nguyenvantan@gmail.com,0475873587,Hue,Samsung S24 Ultra,$1419,18:00 14/05/2024
+Ho Quang Hieu,Male,hoquanghieu@gmail.com,0987456213,Phu Tho,iPhone 15 Pro Max,$1499,08:20 14/12/2023

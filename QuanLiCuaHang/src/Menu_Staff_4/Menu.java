@@ -68,12 +68,15 @@ public class Menu extends javax.swing.JPanel {
         cmdMenu.setCursor(new Cursor(Cursor.HAND_CURSOR));
         cmdMenu.setIcon(new ImageIcon(getClass().getResource("/icon/menu.png")));
         cmdMenu.setBorder(new EmptyBorder(20, 12, 20, 12));
+        cmdMenu.setFocusable(false);
+
     }
 
     private void createButtonLogout() {
         cmdLogOut = new ButtonCustom();
         cmdLogOut.setIcon(new ImageIcon(getClass().getResource("/icon/exit.png")));
         cmdLogOut.setBorder(new EmptyBorder(5, 12, 5, 12));
+        cmdLogOut.setFocusable(false);
 
     }
 

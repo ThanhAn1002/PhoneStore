@@ -43,30 +43,38 @@ public class TableCell extends JLabel {
         Graphics2D g2 = (Graphics2D) grphcs;
         g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         g2.setColor(Color.WHITE);
-        if (cellType == CellType.LEFT) {
-            g2.fillRoundRect(0, 2, width, height, 6, 6);
-            if (selected) {
-                g2.setColor(new Color(137, 215, 255));
-                g2.setStroke(new BasicStroke(2f));
-                g2.drawRoundRect(1, 2, width, height, 6, 6);
-            }
-        } else if (cellType == CellType.RIGHT) {
-            g2.fillRoundRect(-5, 2, width, height, 6, 6);
-            if (selected) {
-                g2.setColor(new Color(137, 215, 255));
-                g2.setStroke(new BasicStroke(2f));
-                g2.drawRoundRect(-5, 2, width - 2, height, 6, 6);
-            }
-        } else if (cellType == CellType.CENTER) {
-            g2.fillRect(0, 2, width, height);
-            if (selected) {
-                g2.setColor(new Color(137, 215, 255));
-                g2.setStroke(new BasicStroke(2f));
-                g2.drawRect(-5, 2, width + 2, height);
-            }
-        } else {
+        if (null == cellType) {
             g2.setColor(new Color(245, 245, 245));
             g2.fillRect(0, 0, getWidth(), getHeight());
+        } else switch (cellType) {
+            case LEFT -> {
+                g2.fillRoundRect(0, 2, width, height, 6, 6);
+                if (selected) {
+                    g2.setColor(new Color(137, 215, 255));
+                    g2.setStroke(new BasicStroke(2f));
+                    g2.drawRoundRect(1, 2, width, height, 6, 6);
+                }
+            }
+            case RIGHT -> {
+                g2.fillRoundRect(-5, 2, width, height, 6, 6);
+                if (selected) {
+                    g2.setColor(new Color(137, 215, 255));
+                    g2.setStroke(new BasicStroke(2f));
+                    g2.drawRoundRect(-5, 2, width - 2, height, 6, 6);
+                }
+            }
+            case CENTER -> {
+                g2.fillRect(0, 2, width, height);
+                if (selected) {
+                    g2.setColor(new Color(137, 215, 255));
+                    g2.setStroke(new BasicStroke(2f));
+                    g2.drawRect(-5, 2, width + 2, height);
+                }
+            }
+            default -> {
+                g2.setColor(new Color(245, 245, 245));
+                g2.fillRect(0, 0, getWidth(), getHeight());
+            }
         }
         super.paintComponent(grphcs);
     }

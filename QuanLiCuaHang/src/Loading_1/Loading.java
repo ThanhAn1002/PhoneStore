@@ -17,6 +17,8 @@ public class Loading extends javax.swing.JFrame {
     /**
      * Creates new form Loading
      */
+//    private int mouseY;
+//    private int mouseX;
     public Loading() {
         initComponents();
     }
@@ -38,6 +40,16 @@ public class Loading extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Cửa hàng PHONE STORE ");
         setUndecorated(true);
+        addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseDragged(java.awt.event.MouseEvent evt) {
+                formMouseDragged(evt);
+            }
+        });
+        addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                formMousePressed(evt);
+            }
+        });
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowOpened(java.awt.event.WindowEvent evt) {
                 formWindowOpened(evt);
@@ -110,6 +122,21 @@ public class Loading extends javax.swing.JFrame {
         }
 
     }//GEN-LAST:event_formWindowOpened
+
+    private void formMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMousePressed
+        // TODO add your handling code here:
+//        mouseX = evt.getX();
+//        mouseY = evt.getY();
+    }//GEN-LAST:event_formMousePressed
+
+    private void formMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseDragged
+        // TODO add your handling code here:
+//        int x = getLocation().x;
+//        int y = getLocation().y;
+//        int deltaX = evt.getX() - mouseX;
+//        int deltaY = evt.getY() - mouseY;
+//        setLocation(x + deltaX, y + deltaY);
+    }//GEN-LAST:event_formMouseDragged
 
     /**
      * @param args the command line arguments
