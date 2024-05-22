@@ -240,6 +240,10 @@ public class Form_He_Thong extends javax.swing.JPanel {
 
     private void button3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button3ActionPerformed
         // TODO add your handling code here:
+        Form_ChiNhanh cn = new Form_ChiNhanh();
+        cn.setVisible(true);
+        cn.pack();
+        cn.setLocationRelativeTo(null);
     }//GEN-LAST:event_button3ActionPerformed
 
     private void button4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button4ActionPerformed
