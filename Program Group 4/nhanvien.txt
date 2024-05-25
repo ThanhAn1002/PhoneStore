@@ -1,4 +1,3 @@
-1,Hoang Van Anh ,Male,13/03/2003,0353873843,Quang Tri,nhanvien1,1
 2,Nguyen Van Hai,Male,23/05/2004,0338247293,Da Nang,nhanvien2,1
 3,Nguyen Thanh Hai,Male,24/09/2002,0438523484,Hue,nhanvien3,1
 4,Tran Thi Mai,Female,20/10/2003,0398876555,Quang Nam,nhanvien4,1

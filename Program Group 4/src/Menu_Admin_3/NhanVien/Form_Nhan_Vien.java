@@ -565,8 +565,8 @@ public class Form_Nhan_Vien extends javax.swing.JPanel {
                 Collections.sort(rows, new Comparator<Object[]>() {
                     @Override
                     public int compare(Object[] row1, Object[] row2) {
-                        String phone1 = ((String) row1[2]).replaceAll("[^\\d]", "");
-                        String phone2 = ((String) row2[2]).replaceAll("[^\\d]", "");
+                        String phone1 = ((String) row1[4]).replaceAll("[^\\d]", "");
+                        String phone2 = ((String) row2[4]).replaceAll("[^\\d]", "");
                         return phone1.compareTo(phone2);
                     }
                 });

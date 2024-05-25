@@ -6,6 +6,10 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -350,93 +354,93 @@ public class Form_Don_Hang extends javax.swing.JPanel {
     }//GEN-LAST:event_jTextField1ActionPerformed
 
     private void button3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button3ActionPerformed
-    String name = jTextField1.getText();
-    String gender = jTextField2.getText();
-    String email = jTextField8.getText();
-    String phone = jTextField3.getText();
-    String address = jTextField4.getText();
-    String product = jTextField7.getText();
-    String price = jTextField5.getText();
-    String time = jTextField6.getText();
+        String name = jTextField1.getText();
+        String gender = jTextField2.getText();
+        String email = jTextField8.getText();
+        String phone = jTextField3.getText();
+        String address = jTextField4.getText();
+        String product = jTextField7.getText();
+        String price = jTextField5.getText();
+        String time = jTextField6.getText();
 
-    if (name.isEmpty() || gender.isEmpty() || email.isEmpty() || phone.isEmpty() || address.isEmpty() || product.isEmpty() || price.isEmpty() || time.isEmpty()) {
-        JOptionPane.showMessageDialog(this,
-                " Please enter all fields ! ",
-                " Try again ! ",
-                JOptionPane.ERROR_MESSAGE);
-        return;
-    }
+        if (name.isEmpty() || gender.isEmpty() || email.isEmpty() || phone.isEmpty() || address.isEmpty() || product.isEmpty() || price.isEmpty() || time.isEmpty()) {
+            JOptionPane.showMessageDialog(this,
+                    " Please enter all fields ! ",
+                    " Try again ! ",
+                    JOptionPane.ERROR_MESSAGE);
+            return;
+        }
 
-    boolean emailExists = false;
-    boolean phoneExists = false;
+        boolean emailExists = false;
+        boolean phoneExists = false;
 
-    // Check for duplicate phone number and email
-    try (BufferedReader reader = new BufferedReader(new FileReader("khachhang.txt"))) {
-        String line;
-        while ((line = reader.readLine()) != null) {
-            String[] parts = line.split(",");
-            if (parts.length >= 8) {
-                String existingEmail = parts[2];
-                String existingPhone = parts[3];
+        // Check for duplicate phone number and email
+        try (BufferedReader reader = new BufferedReader(new FileReader("khachhang.txt"))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                String[] parts = line.split(",");
+                if (parts.length >= 8) {
+                    String existingEmail = parts[2];
+                    String existingPhone = parts[3];
 
-                if (existingEmail.equals(email) && existingPhone.equals(phone)) {
-                    emailExists = true;
-                    phoneExists = true;
-                    break;
-                } else if (existingEmail.equals(email)) {
-                    emailExists = true;
-                } else if (existingPhone.equals(phone)) {
-                    phoneExists = true;
+                    if (existingEmail.equals(email) && existingPhone.equals(phone)) {
+                        emailExists = true;
+                        phoneExists = true;
+                        break;
+                    } else if (existingEmail.equals(email)) {
+                        emailExists = true;
+                    } else if (existingPhone.equals(phone)) {
+                        phoneExists = true;
+                    }
                 }
             }
-        }
-    } catch (IOException e) {
-        e.printStackTrace();
-        JOptionPane.showMessageDialog(this,
-                "Error reading data from file!",
-                "Error",
-                JOptionPane.ERROR_MESSAGE);
-        return;
-    }
-
-    if (emailExists && phoneExists) {
-        JOptionPane.showMessageDialog(this,
-                "Both email and phone number already exist!",
-                "Error",
-                JOptionPane.ERROR_MESSAGE);
-    } else if (emailExists) {
-        JOptionPane.showMessageDialog(this,
-                "Email already exists!",
-                "Error",
-                JOptionPane.ERROR_MESSAGE);
-    } else if (phoneExists) {
-        JOptionPane.showMessageDialog(this,
-                "Phone number already exists!",
-                "Error",
-                JOptionPane.ERROR_MESSAGE);
-    } else {
-        try (FileWriter writer = new FileWriter("khachhang.txt", true)) {
-            writer.write(String.format("%s,%s,%s,%s,%s,%s,%s,%s\n", name, gender, email, phone, address, product, price, time));
         } catch (IOException e) {
             e.printStackTrace();
             JOptionPane.showMessageDialog(this,
-                    "Error saving data to file!",
+                    "Error reading data from file!",
                     "Error",
                     JOptionPane.ERROR_MESSAGE);
             return;
         }
-        DefaultTableModel model = (DefaultTableModel) table.getModel();
-        model.addRow(new Object[]{name, product, price, time});
 
-        jTextField1.setText("");
-        jTextField2.setText("");
-        jTextField8.setText("");
-        jTextField3.setText("");
-        jTextField4.setText("");
-        jTextField7.setText("");
-        jTextField5.setText("");
-        jTextField6.setText("");
-    }
+        if (emailExists && phoneExists) {
+            JOptionPane.showMessageDialog(this,
+                    "Both email and phone number already exist!",
+                    "Error",
+                    JOptionPane.ERROR_MESSAGE);
+        } else if (emailExists) {
+            JOptionPane.showMessageDialog(this,
+                    "Email already exists!",
+                    "Error",
+                    JOptionPane.ERROR_MESSAGE);
+        } else if (phoneExists) {
+            JOptionPane.showMessageDialog(this,
+                    "Phone number already exists!",
+                    "Error",
+                    JOptionPane.ERROR_MESSAGE);
+        } else {
+            try (FileWriter writer = new FileWriter("khachhang.txt", true)) {
+                writer.write(String.format("%s,%s,%s,%s,%s,%s,%s,%s\n", name, gender, email, phone, address, product, price, time));
+            } catch (IOException e) {
+                e.printStackTrace();
+                JOptionPane.showMessageDialog(this,
+                        "Error saving data to file!",
+                        "Error",
+                        JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+            DefaultTableModel model = (DefaultTableModel) table.getModel();
+            model.addRow(new Object[]{name, product, price, time});
+
+            jTextField1.setText("");
+            jTextField2.setText("");
+            jTextField8.setText("");
+            jTextField3.setText("");
+            jTextField4.setText("");
+            jTextField7.setText("");
+            jTextField5.setText("");
+            jTextField6.setText("");
+        }
 
     }//GEN-LAST:event_button3ActionPerformed
 
@@ -511,7 +515,33 @@ public class Form_Don_Hang extends javax.swing.JPanel {
     }//GEN-LAST:event_formAncestorAdded
 
     private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
-        // TODO add your handling code here:
+        String selectedOption = (String) jComboBox1.getSelectedItem();
+    DefaultTableModel tableModel = (DefaultTableModel) table.getModel();
+    List<Object[]> rows = new ArrayList<>();
+    for (int i = 0; i < tableModel.getRowCount(); i++) {
+        Object[] rowValues = new Object[tableModel.getColumnCount()];
+        for (int j = 0; j < tableModel.getColumnCount(); j++) {
+            rowValues[j] = tableModel.getValueAt(i, j);
+        }
+        rows.add(rowValues);
+    }
+    switch (selectedOption) {
+        case "Sort by total amount":
+            Collections.sort(rows, new Comparator<Object[]>() {
+                @Override
+                public int compare(Object[] row1, Object[] row2) {
+                    // Extract the numeric value without "$" and convert to Double
+                    Double amount1 = Double.valueOf(row1[2].toString().replace("$", ""));
+                    Double amount2 = Double.valueOf(row2[2].toString().replace("$", ""));
+                    return amount1.compareTo(amount2);
+                }
+            });
+            break;
+    }
+    tableModel.setRowCount(0);
+    for (Object[] row : rows) {
+        tableModel.addRow(row);
+    }
     }//GEN-LAST:event_jComboBox1ActionPerformed
 
 

@@ -75,12 +75,12 @@ public class Form_Danh_Sach_Hoa_Don extends javax.swing.JPanel {
         // TODO add your handling code here:
          try {
       // Read data from data.txt
-      BufferedReader reader = new BufferedReader(new FileReader("data.txt"));
+      BufferedReader reader = new BufferedReader(new FileReader("dshoadon.txt"));
       String line = reader.readLine();
 
       // Check if data exists
       if (line == null) {
-        JOptionPane.showMessageDialog(null, "data.txt is empty.");
+        JOptionPane.showMessageDialog(null, "dshoadon.txt is empty.");
         return;
       }
 
@@ -99,7 +99,7 @@ public class Form_Danh_Sach_Hoa_Don extends javax.swing.JPanel {
       // Set the table model
       jTable1.setModel(tableModel);
     } catch (IOException ex) {
-      JOptionPane.showMessageDialog(null, "Error reading data.txt: " + ex.getMessage());
+      JOptionPane.showMessageDialog(null, "Error reading dshoadon.txt: " + ex.getMessage());
     }
     }//GEN-LAST:event_formAncestorAdded
 

@@ -1,6 +1,11 @@
 package Login_Register_2;
 
 import java.awt.event.KeyEvent;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -184,27 +189,64 @@ public class FormRegister extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+private String hashPassword(String password) {
+        try {
+            MessageDigest md = MessageDigest.getInstance("MD5");
+            md.update(password.getBytes());
+            byte[] digest = md.digest();
+            StringBuilder sb = new StringBuilder();
+            for (byte b : digest) {
+                sb.append(String.format("%02x", b & 0xff));
+            }
+            return sb.toString();
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
     private void jButtonDangKiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDangKiActionPerformed
         StringBuilder sb = new StringBuilder();
         String username = jTendangnhap.getText().trim();
-        if (username.isEmpty()) {
+        String password = new String(jPassword.getPassword());
+        String confirm = new String(jPassword1.getPassword());
+
+        if (username.isEmpty() && password.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Username and Password cannot be blank!", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        } else if (username.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Username cannot be blank!", "Error", JOptionPane.ERROR_MESSAGE);
             return;
-        }
-        String password = new String(jPassword.getPassword());
-        if (password.isEmpty()) {
+        } else if (password.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Password cannot be blank!", "Error", JOptionPane.ERROR_MESSAGE);
             jPassword.requestFocus();
             return;
         }
-        String confirm = new String(jPassword1.getPassword());
+
         if (!password.equals(confirm)) {
-            JOptionPane.showMessageDialog(this, "Passwords do not match! Please retry.", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "The entered password does not match! Please try again.", "Error", JOptionPane.ERROR_MESSAGE);
             jPassword.requestFocus();
             return;
         }
-        System.out.println("Registration successful! Username: " + username + ", Password: " + password);
+
+        String hashedPassword = hashPassword(password);
+
+        if (hashedPassword == null) {
+            JOptionPane.showMessageDialog(this, "Error occurred while hashing the password!", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        // Ghi thông tin vào tập tin
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter("taikhoan.txt", true))) {
+            writer.write(username + ":" + hashedPassword); // Ghi thông tin tài khoản dưới dạng "username:hashedPassword"
+            writer.newLine(); // Xuống dòng cho tài khoản tiếp theo
+            writer.close(); // Đóng tập tin sau khi ghi
+        } catch (IOException e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Error occurred while saving account information!", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        System.out.println("Sign Up Success! User name: " + username + ", Password: " + hashedPassword);
         JOptionPane.showMessageDialog(this, "Sign Up Success!", "Success", JOptionPane.INFORMATION_MESSAGE);
         jTendangnhap.setText("");
         jPassword.setText("");
