@@ -1,0 +1,20 @@
+1,Hoang Van Anh ,Male,13/03/2003,0353873843,Quang Tri,nhanvien1,1
+2,Nguyen Van Hai,Male,23/05/2004,0338247293,Da Nang,nhanvien2,1
+3,Nguyen Thanh Hai,Male,24/09/2002,0438523484,Hue,nhanvien3,1
+4,Tran Thi Mai,Female,20/10/2003,0398876555,Quang Nam,nhanvien4,1
+5,Nguyen Thi Lan,Female,20/05/2003,0438737236,Ha Noi,nhanvien5,1
+6,Nguyen Thi Ha,Female,23/04/2004,0473847346,Da Nang,nhanvien6,1
+7,Nguyen Van Tan,Male,25/07/2004,0676473737,Da Nang,nhanvien7,1
+8,Ho Van Quoc,Male,30/08/2004,0395644746,Quang Tri,nhanvien8,1
+9,Ho Thi Thanh Truc,Female,24/06/2002,0375732675,Quang Tri,nhanvien9,1
+10,Nguyen Viet Nam,Male,25/12/2004,0758474657,Hue,nhanvien10,1
+11,Nguyen Viet Tam,Male,13/05/2002,0397645658,Hue,nhanvien11,1
+12,Tran Viet Hieu,Male,24/02/2002,0397654647,Quang Tri,nhanvien12,1
+13,Tran Van Quang Anh,Male,13/04/2003,0884743952,Quang Nam,nhanvien13,1
+14,Hoang Quoc Thanh,Male,12/02/2001,0975736344,Quang Nam,nhanvien14,1
+15,Hoang Ngoc Phuong,Female,13/06/2004,0384757354,Da Nang,nhanvien15,1
+16,Nguyen Thi Nhan,Female,07/08/2001,0398847547,Hue,nhanvien16,1
+17,Nguyen Thi Nu,Female,11/10/2003,0367343756,Da Nang,nhanvien17,1
+18,Nguyen Van Tai,Male,23/12/2003,0397576474,Quang Tri,nhanvien18,1
+19,Nguyen Ngoc Nhat Tien,Male,18/12/2003,0398871812,Hue,nhanvien19,1
+20,Tran Van Thai,Male,12/12/2001,0367765444,Da Nang,nhanvien20,1
