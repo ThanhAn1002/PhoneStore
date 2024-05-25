@@ -7,7 +7,6 @@ package Login_Register_2;
 import javax.swing.JOptionPane;
 import Menu_Admin_3.Menu_admin;
 import Menu_Staff_4.Menu_Staff;
-import java.awt.HeadlessException;
 import java.awt.event.KeyEvent;
 import java.io.BufferedReader;
 import java.io.FileReader;
