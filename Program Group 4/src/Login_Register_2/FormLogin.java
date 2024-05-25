@@ -9,6 +9,11 @@ import Menu_Admin_3.Menu_admin;
 import Menu_Staff_4.Menu_Staff;
 import java.awt.HeadlessException;
 import java.awt.event.KeyEvent;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -279,23 +284,63 @@ public class FormLogin extends javax.swing.JFrame {
     private void jTendangnhapActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTendangnhapActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTendangnhapActionPerformed
+    private void loginToAdmin(String username, String password) {
+        try (BufferedReader reader = new BufferedReader(new FileReader("taikhoan.txt"))) {
+            String line;
+            boolean found = false;
+            while ((line = reader.readLine()) != null) {
+                String[] parts = line.split(":");
+                String savedUsername = parts[0];
+                String savedPassword = parts[1];
 
+                if (savedUsername.equals(username) && savedPassword.equals(hashPassword(password))) {
+                    found = true;
+                    break;
+                }
+            }
+
+            if (found) {
+                Menu_admin m = new Menu_admin();
+                m.setVisible(true);
+                m.setLocationRelativeTo(null);
+                this.dispose();
+            } else {
+                JOptionPane.showMessageDialog(this, "Invalid account name or password!", "Login unsuccessful", JOptionPane.ERROR_MESSAGE);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Error reading account information!", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+    private String hashPassword(String password) {
+        try {
+            MessageDigest md = MessageDigest.getInstance("MD5");
+            md.update(password.getBytes());
+            byte[] digest = md.digest();
+            StringBuilder sb = new StringBuilder();
+            for (byte b : digest) {
+                sb.append(String.format("%02x", b & 0xff));
+            }
+            return sb.toString();
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+            return password;
+        }
+    }
     private void jButtonDangnhapActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDangnhapActionPerformed
         String email = jTendangnhap.getText();
         String password = new String(jPassword.getPassword());
         String enteredCaptcha = nhapcaptcha.getText();
-
         StringBuilder sb = new StringBuilder();
         if (email.equals("")) {
-            sb.append("Please Enter Email !\n");
-        }
-        if (password.equals("")) {
-            sb.append("Please Enter Password ! \n");
-        }
-        if (enteredCaptcha.equals("")) {
-            sb.append("Please Enter Captcha ! \n");
+            sb.append("User name cannot be blank!");
+        } else if (password.equals("")) {
+            sb.append("Password can not be blank!");
+        } else if (enteredCaptcha.equals("")) {
+            sb.append("The captcha code cannot be blank!");
         } else if (!validateCaptchaFormat(enteredCaptcha, captcha)) {
-            sb.append("Input wrong Captcha ! \n");
+            sb.append("Wrong captcha code. Type again!");
             generateCaptcha();
             nhapcaptcha.setText("");
         }
@@ -305,41 +350,25 @@ public class FormLogin extends javax.swing.JFrame {
             return;
         }
 
-        try {
-            if (email.equals("nhanvien") && password.equals("1")) {
-                int user = 0;
-                if (user == 0) {
-                    Menu_Staff m = new Menu_Staff();
-                    m.setVisible(true);
-                    m.setLocationRelativeTo(null);
-                    this.dispose();
-                }
-            } else if (email.equals("admin") && password.equals("1")) {
-                int admin = 0;
-                if (admin == 0) {
-                    Menu_admin m = new Menu_admin();
-                    m.setVisible(true);
-                    m.setLocationRelativeTo(null);
-                    this.dispose();
-                }
-            } else {
-                JOptionPane.showConfirmDialog(this, "Email or Password not correct !", "Failure", JOptionPane.ERROR_MESSAGE);
-            }
-        } catch (HeadlessException e) {
+        if (email.equals("nhanvien") && password.equals("1")) {
+
+            Menu_Staff m = new Menu_Staff();
+            m.setVisible(true);
+            m.setLocationRelativeTo(null);
+            this.dispose();
+        } else {
+            loginToAdmin(email, password);
         }
 
     }//GEN-LAST:event_jButtonDangnhapActionPerformed
     private boolean validateCaptchaFormat(String enteredCaptcha, String captcha) {
-        // Check if lengths are equal
         if (enteredCaptcha.length() != captcha.length()) {
             return false;
         }
 
-        // Iterate through each character in the generated captcha
         for (int i = 0; i < captcha.length(); i++) {
             char expectedChar = captcha.charAt(i);
 
-            // Check if the character in the entered captcha matches the format (uppercase/lowercase/number) of the generated captcha character
             boolean isUpperCase = Character.isUpperCase(expectedChar);
             boolean isLowerCase = Character.isLowerCase(expectedChar);
             boolean isNumber = Character.isDigit(expectedChar);
@@ -352,7 +381,6 @@ public class FormLogin extends javax.swing.JFrame {
             }
         }
 
-        // If all characters match the format, return true
         return true;
     }
     private void jShowPassActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jShowPassActionPerformed
@@ -380,47 +408,32 @@ public class FormLogin extends javax.swing.JFrame {
             String email = jTendangnhap.getText();
             String password = new String(jPassword.getPassword());
             String enteredCaptcha = nhapcaptcha.getText();
-
             StringBuilder sb = new StringBuilder();
             if (email.equals("")) {
-                sb.append("Please Enter Email !\n");
-            }
-            if (password.equals("")) {
-                sb.append("Please Enter Password ! \n");
-            }
-            if (enteredCaptcha.equals("")) {
-                sb.append("Please Enter Captcha ! \n");
+                sb.append("User name cannot be blank!");
+            } else if (password.equals("")) {
+                sb.append("Password can not be blank!");
+            } else if (enteredCaptcha.equals("")) {
+                sb.append("The captcha code cannot be blank!");
             } else if (!validateCaptchaFormat(enteredCaptcha, captcha)) {
-                sb.append("Input wrong Captcha ! \n");
+                sb.append("Wrong captcha code. Type again!");
                 generateCaptcha();
                 nhapcaptcha.setText("");
             }
+
             if (sb.length() > 0) {
                 JOptionPane.showMessageDialog(this, sb.toString(), "Error", JOptionPane.ERROR_MESSAGE);
                 return;
             }
 
-            try {
-                if (email.equals("nhanvien") && password.equals("1")) {
-                    int user = 0;
-                    if (user == 0) {
-                        Menu_Staff m = new Menu_Staff();
-                        m.setVisible(true);
-                        m.setLocationRelativeTo(null);
-                        this.dispose();
-                    }
-                } else if (email.equals("admin") && password.equals("1")) {
-                    int admin = 0;
-                    if (admin == 0) {
-                        Menu_admin m = new Menu_admin();
-                        m.setVisible(true);
-                        m.setLocationRelativeTo(null);
-                        this.dispose();
-                    }
-                } else {
-                    JOptionPane.showConfirmDialog(this, "Email or Password not correct !", "Failure", JOptionPane.ERROR_MESSAGE);
-                }
-            } catch (HeadlessException e) {
+            if (email.equals("nhanvien") && password.equals("1")) {
+
+                Menu_Staff m = new Menu_Staff();
+                m.setVisible(true);
+                m.setLocationRelativeTo(null);
+                this.dispose();
+            } else {
+                loginToAdmin(email, password);
             }
         }
     }//GEN-LAST:event_jPasswordKeyPressed
@@ -428,22 +441,18 @@ public class FormLogin extends javax.swing.JFrame {
     private void jTendangnhapKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTendangnhapKeyPressed
         // TODO add your handling code here:
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
-
             String email = jTendangnhap.getText();
             String password = new String(jPassword.getPassword());
             String enteredCaptcha = nhapcaptcha.getText();
-
             StringBuilder sb = new StringBuilder();
             if (email.equals("")) {
-                sb.append("Please Enter Email !\n");
-            }
-            if (password.equals("")) {
-                sb.append("Please Enter Password ! \n");
-            }
-            if (enteredCaptcha.equals("")) {
-                sb.append("Please Enter Captcha ! \n");
+                sb.append("User name cannot be blank!");
+            } else if (password.equals("")) {
+                sb.append("Password can not be blank!");
+            } else if (enteredCaptcha.equals("")) {
+                sb.append("The captcha code cannot be blank!");
             } else if (!validateCaptchaFormat(enteredCaptcha, captcha)) {
-                sb.append("Input wrong Captcha ! \n");
+                sb.append("Wrong captcha code. Type again!");
                 generateCaptcha();
                 nhapcaptcha.setText("");
             }
@@ -453,27 +462,14 @@ public class FormLogin extends javax.swing.JFrame {
                 return;
             }
 
-            try {
-                if (email.equals("nhanvien") && password.equals("1")) {
-                    int user = 0;
-                    if (user == 0) {
-                        Menu_Staff m = new Menu_Staff();
-                        m.setVisible(true);
-                        m.setLocationRelativeTo(null);
-                        this.dispose();
-                    }
-                } else if (email.equals("admin") && password.equals("1")) {
-                    int admin = 0;
-                    if (admin == 0) {
-                        Menu_admin m = new Menu_admin();
-                        m.setVisible(true);
-                        m.setLocationRelativeTo(null);
-                        this.dispose();
-                    }
-                } else {
-                    JOptionPane.showConfirmDialog(this, "Email or Password not correct !", "Failure", JOptionPane.ERROR_MESSAGE);
-                }
-            } catch (HeadlessException e) {
+            if (email.equals("nhanvien") && password.equals("1")) {
+
+                Menu_Staff m = new Menu_Staff();
+                m.setVisible(true);
+                m.setLocationRelativeTo(null);
+                this.dispose();
+            } else {
+                loginToAdmin(email, password);
             }
         }
 
@@ -518,18 +514,15 @@ public class FormLogin extends javax.swing.JFrame {
             String email = jTendangnhap.getText();
             String password = new String(jPassword.getPassword());
             String enteredCaptcha = nhapcaptcha.getText();
-
             StringBuilder sb = new StringBuilder();
             if (email.equals("")) {
-                sb.append("Please Enter Email !\n");
-            }
-            if (password.equals("")) {
-                sb.append("Please Enter Password ! \n");
-            }
-            if (enteredCaptcha.equals("")) {
-                sb.append("Please Enter Captcha ! \n");
+                sb.append("User name cannot be blank!");
+            } else if (password.equals("")) {
+                sb.append("Password can not be blank!");
+            } else if (enteredCaptcha.equals("")) {
+                sb.append("The captcha code cannot be blank!");
             } else if (!validateCaptchaFormat(enteredCaptcha, captcha)) {
-                sb.append("Input wrong Captcha ! \n");
+                sb.append("Wrong captcha code. Type again!");
                 generateCaptcha();
                 nhapcaptcha.setText("");
             }
@@ -539,27 +532,14 @@ public class FormLogin extends javax.swing.JFrame {
                 return;
             }
 
-            try {
-                if (email.equals("nhanvien") && password.equals("1")) {
-                    int user = 0;
-                    if (user == 0) {
-                        Menu_Staff m = new Menu_Staff();
-                        m.setVisible(true);
-                        m.setLocationRelativeTo(null);
-                        this.dispose();
-                    }
-                } else if (email.equals("admin") && password.equals("1")) {
-                    int admin = 0;
-                    if (admin == 0) {
-                        Menu_admin m = new Menu_admin();
-                        m.setVisible(true);
-                        m.setLocationRelativeTo(null);
-                        this.dispose();
-                    }
-                } else {
-                    JOptionPane.showConfirmDialog(this, "Email or Password not correct !", "Failure", JOptionPane.ERROR_MESSAGE);
-                }
-            } catch (HeadlessException e) {
+            if (email.equals("nhanvien") && password.equals("1")) {
+
+                Menu_Staff m = new Menu_Staff();
+                m.setVisible(true);
+                m.setLocationRelativeTo(null);
+                this.dispose();
+            } else {
+                loginToAdmin(email, password);
             }
         }
     }//GEN-LAST:event_nhapcaptchaKeyPressed
