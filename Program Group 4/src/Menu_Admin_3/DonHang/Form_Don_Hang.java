@@ -516,32 +516,32 @@ public class Form_Don_Hang extends javax.swing.JPanel {
 
     private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
         String selectedOption = (String) jComboBox1.getSelectedItem();
-    DefaultTableModel tableModel = (DefaultTableModel) table.getModel();
-    List<Object[]> rows = new ArrayList<>();
-    for (int i = 0; i < tableModel.getRowCount(); i++) {
-        Object[] rowValues = new Object[tableModel.getColumnCount()];
-        for (int j = 0; j < tableModel.getColumnCount(); j++) {
-            rowValues[j] = tableModel.getValueAt(i, j);
+        DefaultTableModel tableModel = (DefaultTableModel) table.getModel();
+        List<Object[]> rows = new ArrayList<>();
+        for (int i = 0; i < tableModel.getRowCount(); i++) {
+            Object[] rowValues = new Object[tableModel.getColumnCount()];
+            for (int j = 0; j < tableModel.getColumnCount(); j++) {
+                rowValues[j] = tableModel.getValueAt(i, j);
+            }
+            rows.add(rowValues);
         }
-        rows.add(rowValues);
-    }
-    switch (selectedOption) {
-        case "Sort by total amount":
-            Collections.sort(rows, new Comparator<Object[]>() {
-                @Override
-                public int compare(Object[] row1, Object[] row2) {
-                    // Extract the numeric value without "$" and convert to Double
-                    Double amount1 = Double.valueOf(row1[2].toString().replace("$", ""));
-                    Double amount2 = Double.valueOf(row2[2].toString().replace("$", ""));
-                    return amount1.compareTo(amount2);
-                }
-            });
-            break;
-    }
-    tableModel.setRowCount(0);
-    for (Object[] row : rows) {
-        tableModel.addRow(row);
-    }
+        switch (selectedOption) {
+            case "Sort by total amount":
+                Collections.sort(rows, new Comparator<Object[]>() {
+                    @Override
+                    public int compare(Object[] row1, Object[] row2) {
+                        // Extract the numeric value without "$" and convert to Double
+                        Double amount1 = Double.valueOf(row1[2].toString().replace("$", ""));
+                        Double amount2 = Double.valueOf(row2[2].toString().replace("$", ""));
+                        return amount1.compareTo(amount2);
+                    }
+                });
+                break;
+        }
+        tableModel.setRowCount(0);
+        for (Object[] row : rows) {
+            tableModel.addRow(row);
+        }
     }//GEN-LAST:event_jComboBox1ActionPerformed
 
 

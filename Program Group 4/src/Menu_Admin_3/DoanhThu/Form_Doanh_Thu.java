@@ -6,6 +6,10 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
 import java.util.Scanner;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -55,6 +59,7 @@ public class Form_Doanh_Thu extends javax.swing.JPanel {
         jScrollPane1 = new javax.swing.JScrollPane();
         table = new Menu_Admin_3.DoanhThu.TableColumn();
         jLabel2 = new javax.swing.JLabel();
+        jComboBox1 = new javax.swing.JComboBox<>();
 
         addAncestorListener(new javax.swing.event.AncestorListener() {
             public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
@@ -79,7 +84,7 @@ public class Form_Doanh_Thu extends javax.swing.JPanel {
             panelRound1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelRound1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(chart, javax.swing.GroupLayout.DEFAULT_SIZE, 997, Short.MAX_VALUE)
+                .addComponent(chart, javax.swing.GroupLayout.DEFAULT_SIZE, 985, Short.MAX_VALUE)
                 .addContainerGap())
         );
         panelRound1Layout.setVerticalGroup(
@@ -111,6 +116,14 @@ public class Form_Doanh_Thu extends javax.swing.JPanel {
         jLabel2.setText("Revennue History");
         jLabel2.setBorder(javax.swing.BorderFactory.createEmptyBorder(10, 10, 1, 1));
 
+        jComboBox1.setBackground(new java.awt.Color(242, 242, 242));
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Sort up/down by Income", "Sort up/down by Expense", "Sort up/down by Profit", "Sort up/down by Cost" }));
+        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBox1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -120,14 +133,17 @@ public class Form_Doanh_Thu extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(panelRound1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1)
-                            .addComponent(jLabel2))
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
                         .addComponent(jScrollPane1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(scrollBarCustom2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(scrollBarCustom2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel1)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel2)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -138,7 +154,9 @@ public class Form_Doanh_Thu extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(panelRound1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel2)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(scrollBarCustom2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -171,9 +189,75 @@ public class Form_Doanh_Thu extends javax.swing.JPanel {
                     JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_formAncestorAdded
+    private boolean isAscending = true;
+    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
+        String selectedOption = (String) jComboBox1.getSelectedItem();
+        DefaultTableModel tableModel = (DefaultTableModel) table.getModel();
+        List<Object[]> rows = new ArrayList<>();
+        for (int i = 0; i < tableModel.getRowCount(); i++) {
+            Object[] rowValues = new Object[tableModel.getColumnCount()];
+            for (int j = 0; j < tableModel.getColumnCount(); j++) {
+                rowValues[j] = tableModel.getValueAt(i, j);
+            }
+            rows.add(rowValues);
+        }
+        Comparator<Object[]> comparator = null;
+
+        switch (selectedOption) {
+            case "Sort up/down by Income":
+                comparator = new Comparator<Object[]>() {
+                    @Override
+                    public int compare(Object[] row1, Object[] row2) {
+                        Double amount1 = Double.valueOf(row1[1].toString());
+                        Double amount2 = Double.valueOf(row2[1].toString());
+                        return amount1.compareTo(amount2) * (isAscending ? 1 : -1);
+                    }
+                };
+                break;
+            case "Sort up/down by Expense":
+                comparator = new Comparator<Object[]>() {
+                    @Override
+                    public int compare(Object[] row1, Object[] row2) {
+                        Double amount1 = Double.valueOf(row1[2].toString());
+                        Double amount2 = Double.valueOf(row2[2].toString());
+                        return amount1.compareTo(amount2) * (isAscending ? 1 : -1);
+                    }
+                };
+                break;
+            case "Sort up/down by Profit":
+                comparator = new Comparator<Object[]>() {
+                    @Override
+                    public int compare(Object[] row1, Object[] row2) {
+                        Double amount1 = Double.valueOf(row1[3].toString());
+                        Double amount2 = Double.valueOf(row2[3].toString());
+                        return amount1.compareTo(amount2) * (isAscending ? 1 : -1);
+                    }
+                };
+                break;
+            case "Sort up/down by Cost":
+                comparator = new Comparator<Object[]>() {
+                    @Override
+                    public int compare(Object[] row1, Object[] row2) {
+                        Double amount1 = Double.valueOf(row1[4].toString());
+                        Double amount2 = Double.valueOf(row2[4].toString());
+                        return amount1.compareTo(amount2) * (isAscending ? 1 : -1);
+                    }
+                };
+                break;
+        }
+        if (comparator != null) {
+            Collections.sort(rows, comparator);
+            isAscending = !isAscending;
+        }
+        tableModel.setRowCount(0);
+        for (Object[] row : rows) {
+            tableModel.addRow(row);
+        }
+    }//GEN-LAST:event_jComboBox1ActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private Menu_Admin_3.DoanhThu.Chart chart;
+    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
