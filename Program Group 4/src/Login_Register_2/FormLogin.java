@@ -283,33 +283,51 @@ public class FormLogin extends javax.swing.JFrame {
     private void jTendangnhapActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTendangnhapActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTendangnhapActionPerformed
-    private void loginToAdmin(String username, String password) {
+    private boolean loginToAdmin(String username, String password) {
         try (BufferedReader reader = new BufferedReader(new FileReader("taikhoan.txt"))) {
             String line;
-            boolean found = false;
             while ((line = reader.readLine()) != null) {
                 String[] parts = line.split(":");
                 String savedUsername = parts[0];
                 String savedPassword = parts[1];
 
                 if (savedUsername.equals(username) && savedPassword.equals(hashPassword(password))) {
-                    found = true;
-                    break;
+                    Menu_admin m = new Menu_admin();
+                    m.setVisible(true);
+                    m.setLocationRelativeTo(null);
+                    this.dispose();
+                    return true;
                 }
-            }
-
-            if (found) {
-                Menu_admin m = new Menu_admin();
-                m.setVisible(true);
-                m.setLocationRelativeTo(null);
-                this.dispose();
-            } else {
-                JOptionPane.showMessageDialog(this, "Invalid account name or password!", "Login unsuccessful", JOptionPane.ERROR_MESSAGE);
             }
         } catch (IOException e) {
             e.printStackTrace();
             JOptionPane.showMessageDialog(this, "Error reading account information!", "Error", JOptionPane.ERROR_MESSAGE);
         }
+        return false;
+    }
+
+    private boolean loginToStaff(String username, String password) {
+        try (BufferedReader reader = new BufferedReader(new FileReader("nhanvien.txt"))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                String[] parts = line.split(",");
+                if (parts.length >= 8) {
+                    String savedUsername = parts[6].trim();
+                    String savedPassword = parts[7].trim();
+
+                    if (savedUsername.equals(username) && savedPassword.equals(password)) {
+                        Menu_Staff m = new Menu_Staff();
+                        m.setVisible(true);
+                        m.setLocationRelativeTo(null);
+                        this.dispose();
+                        return true;
+                    }
+                }
+            }
+        } catch (IOException e) {
+            JOptionPane.showMessageDialog(this, "Error reading account information!", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+        return false;
     }
 
     private String hashPassword(String password) {
@@ -348,17 +366,12 @@ public class FormLogin extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, sb.toString(), "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
+        boolean isAdminLoggedIn = loginToAdmin(email, password);
+        boolean isStaffLoggedIn = loginToStaff(email, password);
 
-        if (email.equals("nhanvien") && password.equals("1")) {
-
-            Menu_Staff m = new Menu_Staff();
-            m.setVisible(true);
-            m.setLocationRelativeTo(null);
-            this.dispose();
-        } else {
-            loginToAdmin(email, password);
+        if (!isAdminLoggedIn && !isStaffLoggedIn) {
+            JOptionPane.showMessageDialog(this, "Invalid account name or password!", "Login unsuccessful", JOptionPane.ERROR_MESSAGE);
         }
-
     }//GEN-LAST:event_jButtonDangnhapActionPerformed
     private boolean validateCaptchaFormat(String enteredCaptcha, String captcha) {
         if (enteredCaptcha.length() != captcha.length()) {
@@ -403,7 +416,6 @@ public class FormLogin extends javax.swing.JFrame {
     private void jPasswordKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jPasswordKeyPressed
         // TODO add your handling code here:
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
-
             String email = jTendangnhap.getText();
             String password = new String(jPassword.getPassword());
             String enteredCaptcha = nhapcaptcha.getText();
@@ -424,15 +436,11 @@ public class FormLogin extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(this, sb.toString(), "Error", JOptionPane.ERROR_MESSAGE);
                 return;
             }
+            boolean isAdminLoggedIn = loginToAdmin(email, password);
+            boolean isStaffLoggedIn = loginToStaff(email, password);
 
-            if (email.equals("nhanvien") && password.equals("1")) {
-
-                Menu_Staff m = new Menu_Staff();
-                m.setVisible(true);
-                m.setLocationRelativeTo(null);
-                this.dispose();
-            } else {
-                loginToAdmin(email, password);
+            if (!isAdminLoggedIn && !isStaffLoggedIn) {
+                JOptionPane.showMessageDialog(this, "Invalid account name or password!", "Login unsuccessful", JOptionPane.ERROR_MESSAGE);
             }
         }
     }//GEN-LAST:event_jPasswordKeyPressed
@@ -460,18 +468,13 @@ public class FormLogin extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(this, sb.toString(), "Error", JOptionPane.ERROR_MESSAGE);
                 return;
             }
+            boolean isAdminLoggedIn = loginToAdmin(email, password);
+            boolean isStaffLoggedIn = loginToStaff(email, password);
 
-            if (email.equals("nhanvien") && password.equals("1")) {
-
-                Menu_Staff m = new Menu_Staff();
-                m.setVisible(true);
-                m.setLocationRelativeTo(null);
-                this.dispose();
-            } else {
-                loginToAdmin(email, password);
+            if (!isAdminLoggedIn && !isStaffLoggedIn) {
+                JOptionPane.showMessageDialog(this, "Invalid account name or password!", "Login unsuccessful", JOptionPane.ERROR_MESSAGE);
             }
         }
-
     }//GEN-LAST:event_jTendangnhapKeyPressed
 
     private void button1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button1ActionPerformed
@@ -509,7 +512,6 @@ public class FormLogin extends javax.swing.JFrame {
     private void nhapcaptchaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_nhapcaptchaKeyPressed
         // TODO add your handling code here:
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
-
             String email = jTendangnhap.getText();
             String password = new String(jPassword.getPassword());
             String enteredCaptcha = nhapcaptcha.getText();
@@ -530,15 +532,11 @@ public class FormLogin extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(this, sb.toString(), "Error", JOptionPane.ERROR_MESSAGE);
                 return;
             }
+            boolean isAdminLoggedIn = loginToAdmin(email, password);
+            boolean isStaffLoggedIn = loginToStaff(email, password);
 
-            if (email.equals("nhanvien") && password.equals("1")) {
-
-                Menu_Staff m = new Menu_Staff();
-                m.setVisible(true);
-                m.setLocationRelativeTo(null);
-                this.dispose();
-            } else {
-                loginToAdmin(email, password);
+            if (!isAdminLoggedIn && !isStaffLoggedIn) {
+                JOptionPane.showMessageDialog(this, "Invalid account name or password!", "Login unsuccessful", JOptionPane.ERROR_MESSAGE);
             }
         }
     }//GEN-LAST:event_nhapcaptchaKeyPressed
