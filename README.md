@@ -5,12 +5,16 @@ User name: admin
 <br/>
 Password: 1
 <br/>
+(Or you can create your own account)
+<br/>
 -> Connect to Admin form
 <br/>
 <br/>
 User name: nhanvien
 <br/>
 Password: 1
+<br/>
+(Admin provides accounts for Staff)
 <br/>
 -> Connect to Staff form
 <br/>
