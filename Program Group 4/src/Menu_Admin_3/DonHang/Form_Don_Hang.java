@@ -283,7 +283,7 @@ public class Form_Don_Hang extends javax.swing.JPanel {
         );
 
         jComboBox1.setBackground(new java.awt.Color(242, 242, 242));
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Sort by total amount" }));
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Sort up/down by total amount" }));
         jComboBox1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jComboBox1ActionPerformed(evt);
@@ -305,7 +305,7 @@ public class Form_Don_Hang extends javax.swing.JPanel {
                                 .addComponent(jScrollPane1))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGap(16, 16, 16)
-                                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(0, 0, Short.MAX_VALUE))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(card16, javax.swing.GroupLayout.PREFERRED_SIZE, 448, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -513,7 +513,7 @@ public class Form_Don_Hang extends javax.swing.JPanel {
                     JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_formAncestorAdded
-
+    private boolean sortAscending = true;
     private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
         String selectedOption = (String) jComboBox1.getSelectedItem();
         DefaultTableModel tableModel = (DefaultTableModel) table.getModel();
@@ -526,16 +526,20 @@ public class Form_Don_Hang extends javax.swing.JPanel {
             rows.add(rowValues);
         }
         switch (selectedOption) {
-            case "Sort by total amount":
+            case "Sort up/down by total amount":
                 Collections.sort(rows, new Comparator<Object[]>() {
                     @Override
                     public int compare(Object[] row1, Object[] row2) {
-                        // Extract the numeric value without "$" and convert to Double
                         Double amount1 = Double.valueOf(row1[2].toString().replace("$", ""));
                         Double amount2 = Double.valueOf(row2[2].toString().replace("$", ""));
-                        return amount1.compareTo(amount2);
+                        if (sortAscending) {
+                            return amount1.compareTo(amount2);
+                        } else {
+                            return amount2.compareTo(amount1);
+                        }
                     }
                 });
+                sortAscending = !sortAscending;
                 break;
         }
         tableModel.setRowCount(0);
