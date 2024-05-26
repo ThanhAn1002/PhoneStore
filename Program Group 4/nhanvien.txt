@@ -18,3 +18,6 @@
 19,Nguyen Ngoc Nhat Tien,Male,18/12/2003,0398871812,Hue,nhanvien19,1
 20,Tran Van Thai,Male,12/12/2001,0367765444,Da Nang,nhanvien20,1
 21,Hoang Thanh An,Male,10/02/2004,0888100204,Quang Tri,thanhan123,1
+22,1,1,1,1,1,1,1
+23,1,1,1,2,1,2,1
+24,thaythuan,Male,12/02/2003,086678678,Quang Tri,user1,1

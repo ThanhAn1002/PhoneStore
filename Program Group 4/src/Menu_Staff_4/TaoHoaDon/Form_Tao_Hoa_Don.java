@@ -3681,7 +3681,7 @@ public final class Form_Tao_Hoa_Don extends javax.swing.JPanel {
     }//GEN-LAST:event_jCheckBox32ActionPerformed
     private void saveToTextFile() throws IOException {
         String textToSave = jTextArea1.getText();
-        BufferedWriter writer = new BufferedWriter(new FileWriter("data.txt"));
+        BufferedWriter writer = new BufferedWriter(new FileWriter("dshoadon.txt"));
         writer.write(textToSave);
         writer.close();
     }
@@ -3691,7 +3691,7 @@ public final class Form_Tao_Hoa_Don extends javax.swing.JPanel {
                 try {
                     jTextArea1.print();
                     saveToTextFile();  // Call the method to save data to "data.txt"
-                    JOptionPane.showMessageDialog(null, "Receipt saved to data.txt!");
+                    JOptionPane.showMessageDialog(null, "Receipt saved to dshoadon.txt!");
                 } catch (PrinterException ex) {
                     Logger.getLogger(Form_Tao_Hoa_Don.class.getName()).log(Level.SEVERE, null, ex);
                 } catch (IOException ex) {

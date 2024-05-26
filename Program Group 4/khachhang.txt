@@ -16,3 +16,5 @@ Nguyen The Hieu,Female,thehieu1@gmail.com,0457843958,Quang Nam,iPhone 12 Pro Max
 Nguyen Thi Thanh,Female,thithanh@gmail.com,0346734958,Vinh,iPhone 12 Pro Max,$1203,12:30 01/02/2023
 Bui Huy Tam,Female,huytam@gmail.com,0567845934,Quang Tri,iPhone 14 Pro Max,$1503,12:04 12/05/2024
 Nguyen Minh Hien,Female,minhhien@gmail.com,045784506,Quang Tri,iPhone 12 Pro,$2321,12:09 12/02/2024
+1,1,1,1,1,1,1,1
+1,1,2,2,1,1,1,1
