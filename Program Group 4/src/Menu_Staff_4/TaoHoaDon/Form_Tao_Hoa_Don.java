@@ -3131,10 +3131,10 @@ public final class Form_Tao_Hoa_Don extends javax.swing.JPanel {
                         Logger.getLogger(Form_Tao_Hoa_Don.class.getName()).log(Level.SEVERE, null, ex);
                     }
                     Date date = new Date();
-                    SimpleDateFormat tf = new SimpleDateFormat("h:mm:ss aa");
-                    SimpleDateFormat df = new SimpleDateFormat("EEEE, dd-MM-yyyy");
+                    SimpleDateFormat tf = new SimpleDateFormat("HH:mm:ss");
+                    SimpleDateFormat df = new SimpleDateFormat("EEEE, dd/MM/yyyy");
                     String time = tf.format(date);
-                    jTxTime.setText(time.split(" ")[0] + " " + time.split(" ")[1]);
+                    jTxTime.setText(time);
                     jTxtDate.setText(df.format(date));
                 }
             }

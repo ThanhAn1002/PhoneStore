@@ -62,7 +62,7 @@ public class Form_Khach_Hang extends javax.swing.JPanel {
 
             },
             new String [] {
-                "Name", "Gender", "Email", "Phone Number", "Address"
+                "Id", "Name", "Gender", "Email", "Phone Number", "Address"
             }
         ));
         jScrollPane1.setViewportView(table);
@@ -178,13 +178,14 @@ public class Form_Khach_Hang extends javax.swing.JPanel {
             String line;
             while ((line = br.readLine()) != null) {
                 String[] data = line.split(",");
-                String name = data[0];
-                String gender = data[1];
-                String email = data[2];
-                String phone = data[3];
-                String address = data[4];
+                int id = Integer.parseInt(data[0]);
+                String name = data[1];
+                String gender = data[2];
+                String email = data[3];
+                String phone = data[4];
+                String address = data[5];
                 DefaultTableModel model = (DefaultTableModel) table.getModel();
-                model.addRow(new Object[]{name, gender, email, phone, address});
+                model.addRow(new Object[]{id, name, gender, email, phone, address});
             }
         } catch (IOException e) {
             e.printStackTrace();

@@ -25,15 +25,15 @@ public final class Header extends javax.swing.JPanel {
 
     public void showDate() {
         Date d = new Date();
-        SimpleDateFormat sd = new SimpleDateFormat("dd-MM-yyyy");
+        SimpleDateFormat sd = new SimpleDateFormat("dd/MM/yyyy");
         String dat = sd.format(d);
         date.setText(dat);
     }
 
     public void showTime() {
-        new Timer(0, (ActionEvent e) -> {
+        new Timer(1000, (ActionEvent e) -> {
             Date d = new Date();
-            SimpleDateFormat sd = new SimpleDateFormat("h:mm:ss aa");
+            SimpleDateFormat sd = new SimpleDateFormat("HH:mm:ss");
             String tim = sd.format(d);
             time.setText(tim);
         }).start();
