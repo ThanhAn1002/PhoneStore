@@ -417,7 +417,6 @@ public class Form_Don_Hang extends javax.swing.JPanel {
         boolean phoneExists = false;
         int nextID = 1;
 
-        // Check for duplicate phone number and email
         try (BufferedReader reader = new BufferedReader(new FileReader("khachhang.txt"))) {
             String line;
             while ((line = reader.readLine()) != null) {
@@ -584,10 +583,8 @@ public class Form_Don_Hang extends javax.swing.JPanel {
                                             String address = data[5];
                                             String product = data[6];
                                             String price = data[7];
-                                            String OTP = ""; // You might need to adjust this if OTP is present in the file
-                                            // String time = data[8]; // Assuming time is already set when adding rows
+                                            String OTP = "";
 
-                                            // Set values to JTextFields
                                             jTextField1.setText(name);
                                             jTextField2.setText(gender);
                                             jTextField8.setText(email);

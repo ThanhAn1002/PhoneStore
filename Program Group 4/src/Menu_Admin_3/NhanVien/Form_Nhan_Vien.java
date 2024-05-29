@@ -19,6 +19,8 @@ import java.util.Scanner;
 import java.util.Set;
 import javax.swing.JOptionPane;
 import javax.swing.RowFilter;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
 
@@ -54,6 +56,7 @@ public class Form_Nhan_Vien extends javax.swing.JPanel {
         button1 = new Menu_Admin_3.HeThong.Button();
         button2 = new Menu_Admin_3.HeThong.Button();
         button3 = new Menu_Admin_3.HeThong.Button();
+        jCheckBox1 = new javax.swing.JCheckBox();
         jScrollPane1 = new javax.swing.JScrollPane();
         table = new Menu_Admin_3.DoanhThu.TableColumn();
         jLabel2 = new javax.swing.JLabel();
@@ -61,6 +64,7 @@ public class Form_Nhan_Vien extends javax.swing.JPanel {
         jLabel1 = new javax.swing.JLabel();
         searchText1 = new Menu_Admin_3.NhanVien.SearchText();
         jComboBox1 = new javax.swing.JComboBox<>();
+        button4 = new Menu_Admin_3.HeThong.Button();
 
         addAncestorListener(new javax.swing.event.AncestorListener() {
             public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
@@ -119,7 +123,7 @@ public class Form_Nhan_Vien extends javax.swing.JPanel {
 
         button1.setBackground(new java.awt.Color(0, 102, 153));
         button1.setForeground(new java.awt.Color(255, 255, 255));
-        button1.setText("Delete");
+        button1.setText("Edit");
         button1.setFocusable(false);
         button1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         button1.addActionListener(new java.awt.event.ActionListener() {
@@ -150,6 +154,14 @@ public class Form_Nhan_Vien extends javax.swing.JPanel {
             }
         });
 
+        jCheckBox1.setBackground(new java.awt.Color(255, 255, 255));
+        jCheckBox1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/eye.png"))); // NOI18N
+        jCheckBox1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCheckBox1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout panelRound1Layout = new javax.swing.GroupLayout(panelRound1);
         panelRound1.setLayout(panelRound1Layout);
         panelRound1Layout.setHorizontalGroup(
@@ -172,25 +184,30 @@ public class Form_Nhan_Vien extends javax.swing.JPanel {
                     .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(29, 29, 29)
                 .addGroup(panelRound1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(panelRound1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(jTextField7, javax.swing.GroupLayout.DEFAULT_SIZE, 177, Short.MAX_VALUE)
-                        .addComponent(jTextField4)))
-                .addGap(84, 84, 84)
-                .addGroup(panelRound1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelRound1Layout.createSequentialGroup()
-                        .addComponent(jLabel7)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 43, Short.MAX_VALUE)
-                        .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(panelRound1Layout.createSequentialGroup()
-                        .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(panelRound1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(panelRound1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(jTextField7, javax.swing.GroupLayout.DEFAULT_SIZE, 177, Short.MAX_VALUE)
+                                .addComponent(jTextField4)))
+                        .addGap(84, 84, 84)
+                        .addGroup(panelRound1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelRound1Layout.createSequentialGroup()
+                                .addComponent(jLabel7)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 43, Short.MAX_VALUE)
+                                .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(panelRound1Layout.createSequentialGroup()
+                                .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(panelRound1Layout.createSequentialGroup()
+                                .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jTextField8, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(panelRound1Layout.createSequentialGroup()
-                        .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jTextField8, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jCheckBox1)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         panelRound1Layout.setVerticalGroup(
@@ -219,7 +236,8 @@ public class Form_Nhan_Vien extends javax.swing.JPanel {
                         .addGap(36, 36, 36)
                         .addGroup(panelRound1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel10)
-                            .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jCheckBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(panelRound1Layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -298,6 +316,17 @@ public class Form_Nhan_Vien extends javax.swing.JPanel {
             }
         });
 
+        button4.setBackground(new java.awt.Color(242, 242, 242));
+        button4.setForeground(new java.awt.Color(255, 255, 255));
+        button4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/delete.png"))); // NOI18N
+        button4.setFocusable(false);
+        button4.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        button4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                button4ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -312,6 +341,8 @@ public class Form_Nhan_Vien extends javax.swing.JPanel {
                                 .addComponent(jLabel2)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(button4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jScrollPane1))
@@ -329,7 +360,8 @@ public class Form_Nhan_Vien extends javax.swing.JPanel {
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel2)
                         .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(button4, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(scrollBarCustom2, javax.swing.GroupLayout.DEFAULT_SIZE, 218, Short.MAX_VALUE)
@@ -373,34 +405,80 @@ public class Form_Nhan_Vien extends javax.swing.JPanel {
         // TODO add your handling code here:
         int selectedRowIndex = table.getSelectedRow();
         if (selectedRowIndex != -1) {
-            try (BufferedReader reader = new BufferedReader(new FileReader("nhanvien.txt")); BufferedWriter writer = new BufferedWriter(new FileWriter("nhanvien_temp.txt"))) {
-                String line;
-                int lineNumber = 0;
-                while ((line = reader.readLine()) != null) {
-                    if (lineNumber != selectedRowIndex) {
-                        writer.write(line + "\n");
-                    }
-                    lineNumber++;
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
-                JOptionPane.showMessageDialog(this, "Error deleting data!", "Error", JOptionPane.ERROR_MESSAGE);
-                return;
+            int filledFieldsCount = 0;
+            if (!jTextField3.getText().isEmpty()) {
+                filledFieldsCount++;
+            }
+            if (!jTextField4.getText().isEmpty()) {
+                filledFieldsCount++;
+            }
+            if (!jTextField5.getText().isEmpty()) {
+                filledFieldsCount++;
+            }
+            if (!jTextField6.getText().isEmpty()) {
+                filledFieldsCount++;
+            }
+            if (!jTextField7.getText().isEmpty()) {
+                filledFieldsCount++;
+            }
+            if (!jTextField8.getText().isEmpty()) {
+                filledFieldsCount++;
+            }
+            if (!jPasswordField1.getText().isEmpty()) {
+                filledFieldsCount++;
             }
 
-            File dataFile = new File("nhanvien.txt");
-            File tempFile = new File("nhanvien_temp.txt");
-            if (dataFile.delete() && tempFile.renameTo(dataFile)) {
-                // Data deleted and temporary file renamed successfully
-                DefaultTableModel model = (DefaultTableModel) table.getModel();
-                model.removeRow(selectedRowIndex);
-                JOptionPane.showMessageDialog(this, "Data deleted successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
+            if (filledFieldsCount == 7) {
+                try {
+                    File inputFile = new File("nhanvien.txt");
+                    File tempFile = new File("nhanvien_temp.txt");
+                    BufferedReader reader = new BufferedReader(new FileReader(inputFile));
+                    BufferedWriter writer = new BufferedWriter(new FileWriter(tempFile));
+                    String line;
+                    int lineNumber = 0;
+                    while ((line = reader.readLine()) != null) {
+                        if (lineNumber == selectedRowIndex) {
+                            String[] parts = line.split(",");
+                            parts[1] = jTextField3.getText();
+                            parts[2] = jTextField4.getText();
+                            parts[3] = jTextField5.getText();
+                            parts[4] = jTextField6.getText();
+                            parts[5] = jTextField7.getText();
+                            parts[6] = jTextField8.getText();
+                            parts[7] = jPasswordField1.getText();
+                            String editedLine = String.join(",", parts);
+                            writer.write(editedLine + "\n");
+                        } else {
+                            writer.write(line + "\n");
+                        }
+                        lineNumber++;
+                    }
+
+                    reader.close();
+                    writer.close();
+                    if (inputFile.delete() && tempFile.renameTo(inputFile)) {
+                        JOptionPane.showMessageDialog(this, "Data edited and saved successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
+                        jTextField3.setText("");
+                        jTextField4.setText("");
+                        jTextField5.setText("");
+                        jTextField6.setText("");
+                        jTextField7.setText("");
+                        jTextField8.setText("");
+                        jPasswordField1.setText("");
+                    } else {
+                        JOptionPane.showMessageDialog(this, "Error saving edited data!", "Error", JOptionPane.ERROR_MESSAGE);
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    JOptionPane.showMessageDialog(this, "Error editing data!", "Error", JOptionPane.ERROR_MESSAGE);
+                }
             } else {
-                JOptionPane.showMessageDialog(this, "Error deleting data!", "Error", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Please enter all fields!", "Error", JOptionPane.ERROR_MESSAGE);
             }
         } else {
-            JOptionPane.showMessageDialog(this, "Please select a row to delete!", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Please select a row to edit!", "Error", JOptionPane.ERROR_MESSAGE);
         }
+
     }//GEN-LAST:event_button1ActionPerformed
 
     private void button2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button2ActionPerformed
@@ -514,22 +592,87 @@ public class Form_Nhan_Vien extends javax.swing.JPanel {
 
     private void formAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_formAncestorAdded
         // TODO add your handling code here:
+//        try (FileReader reader = new FileReader("nhanvien.txt")) {
+//            BufferedReader br = new BufferedReader(reader);
+//            String line;
+//            while ((line = br.readLine()) != null) {
+//                String[] data = line.split(",");
+//                String id = data[0];
+//                String fullname = data[1];
+//                String gender = data[2];
+//                String dateofbirth = data[3];
+//                String phonenumber = data[4];
+//                String address = data[5];
+//                String username = data[6];
+//                String password = "***"; //an password
+//                DefaultTableModel model = (DefaultTableModel) table.getModel();
+//                model.addRow(new Object[]{id, fullname, gender, dateofbirth, phonenumber, address, username, password});
+//            }
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//            JOptionPane.showMessageDialog(this,
+//                    "Error loading data from file!",
+//                    "Error",
+//                    JOptionPane.ERROR_MESSAGE);
+//        }
         try (FileReader reader = new FileReader("nhanvien.txt")) {
             BufferedReader br = new BufferedReader(reader);
             String line;
             while ((line = br.readLine()) != null) {
                 String[] data = line.split(",");
-                String id = data[0];
-                String fullname = data[1];
-                String gender = data[2];
-                String dateofbirth = data[3];
-                String phonenumber = data[4];
-                String address = data[5];
-                String username = data[6];
-                String password = "***"; //an password
-                DefaultTableModel model = (DefaultTableModel) table.getModel();
-                model.addRow(new Object[]{id, fullname, gender, dateofbirth, phonenumber, address, username, password});
+                if (data.length >= 8) {
+                    String id = data[0];
+                    String name = data[1];
+                    String gender = data[2];
+                    String dateofbirth = data[3];
+                    String phone = data[4];
+                    String address = data[5];
+                    String username = data[6];
+                    String password = "******";
+                    DefaultTableModel model = (DefaultTableModel) table.getModel();
+                    model.addRow(new Object[]{id, name, gender, dateofbirth, phone, address, username, password});
+                }
             }
+            table.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+                public void valueChanged(ListSelectionEvent event) {
+                    if (!event.getValueIsAdjusting()) {
+                        int selectedRowIndex = table.getSelectedRow();
+                        if (selectedRowIndex != -1) {
+                            try (BufferedReader reader = new BufferedReader(new FileReader("nhanvien.txt"))) {
+                                String line;
+                                int lineNumber = 0;
+                                while ((line = reader.readLine()) != null) {
+                                    if (lineNumber == selectedRowIndex) {
+                                        String[] data = line.split(",");
+                                        if (data.length >= 8) {
+                                            String name = data[1];
+                                            String gender = data[2];
+                                            String dateofbirth = data[3];
+                                            String phone = data[4];
+                                            String address = data[5];
+                                            String username = data[6];
+                                            String password = data[7];
+
+                                            jTextField3.setText(name);
+                                            jTextField4.setText(gender);
+                                            jTextField5.setText(dateofbirth);
+                                            jTextField6.setText(phone);
+                                            jTextField7.setText(address);
+                                            jTextField8.setText(username);
+                                            jPasswordField1.setText(password);
+                                            break;
+                                        }
+                                    }
+                                    lineNumber++;
+                                }
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                                JOptionPane.showMessageDialog(Form_Nhan_Vien.this, "Error reading data from file!", "Error", JOptionPane.ERROR_MESSAGE);
+                            }
+                        }
+                    }
+                }
+            });
         } catch (IOException e) {
             e.printStackTrace();
             JOptionPane.showMessageDialog(this,
@@ -586,10 +729,56 @@ public class Form_Nhan_Vien extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_jComboBox1ActionPerformed
 
+    private void button4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button4ActionPerformed
+        // TODO add your handling code here:
+        int selectedRowIndex = table.getSelectedRow();
+        if (selectedRowIndex != -1) {
+            try (BufferedReader reader = new BufferedReader(new FileReader("nhanvien.txt")); BufferedWriter writer = new BufferedWriter(new FileWriter("nhanvien_temp.txt"))) {
+                String line;
+                int lineNumber = 0;
+                while ((line = reader.readLine()) != null) {
+                    if (lineNumber != selectedRowIndex) {
+                        writer.write(line + "\n");
+                    }
+                    lineNumber++;
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+                JOptionPane.showMessageDialog(this, "Error deleting data!", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            File dataFile = new File("nhanvien.txt");
+            File tempFile = new File("nhanvien_temp.txt");
+            if (dataFile.delete() && tempFile.renameTo(dataFile)) {
+                // Data deleted and temporary file renamed successfully
+                DefaultTableModel model = (DefaultTableModel) table.getModel();
+                model.removeRow(selectedRowIndex);
+                JOptionPane.showMessageDialog(this, "Data deleted successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
+            } else {
+                JOptionPane.showMessageDialog(this, "Error deleting data!", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "Please select a row to delete!", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+
+    }//GEN-LAST:event_button4ActionPerformed
+
+    private void jCheckBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox1ActionPerformed
+        // TODO add your handling code here:
+        if (jCheckBox1.isSelected()) {
+            jPasswordField1.setEchoChar((char) 0);
+        } else {
+            jPasswordField1.setEchoChar('●');
+        }
+    }//GEN-LAST:event_jCheckBox1ActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private Menu_Admin_3.HeThong.Button button1;
     private Menu_Admin_3.HeThong.Button button2;
     private Menu_Admin_3.HeThong.Button button3;
+    private Menu_Admin_3.HeThong.Button button4;
+    private javax.swing.JCheckBox jCheckBox1;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
